@@ -8,7 +8,7 @@ interface VideoMessage extends mongoose.Document {
     videoUrl: string;
     duration: number;
     price: number;
-    status: string;
+    status: "Pending" | "Accepted" | "Completed" | "Rejected";
     createdAt: Date;
     updatedAt: Date;
 }
