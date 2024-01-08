@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 
 interface VideoMessage extends mongoose.Document {
     id: string;
-    from_celebrity_id: mongoose.Types.ObjectId;
-    to_user_id: mongoose.Types.ObjectId;
+    fromCelebrityId: mongoose.Types.ObjectId;
+    toUserId: mongoose.Types.ObjectId;
     message: string;
-    video_url: string;
+    videoUrl: string;
     duration: number;
     price: number;
     status: string;
-    created_at: Date;
-    updated_at: Date;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 const videoMessageSchema = new mongoose.Schema({
@@ -18,12 +18,12 @@ const videoMessageSchema = new mongoose.Schema({
         type: String,
         default: mongoose.Types.ObjectId,
     },
-    from_celebrity_id: {
+    fromCelebrityId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "Celebrity",
     },
-    to_user_id: {
+    toUserId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "User",
@@ -32,7 +32,7 @@ const videoMessageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    video_url: {
+    videoUrl: {
         type: String,
     },
     duration: {
@@ -47,11 +47,11 @@ const videoMessageSchema = new mongoose.Schema({
         enum: ["Pending", "Accepted", "Completed", "Rejected"],
         required: true,
     },
-    created_at: {
+    createdAt: {
         type: Date,
         default: Date.now,
     },
-    updated_at: {
+    updatedAt: {
         type: Date,
         default: Date.now,
     },

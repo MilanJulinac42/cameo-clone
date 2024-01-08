@@ -4,13 +4,14 @@ interface Celebrity extends mongoose.Document {
     id: string;
     name: string;
     profession: string;
-    image_url: string;
+    imageUrl: string;
     bio: string;
-    social_media_links: { [key: string]: string };
-    price_per_message: number;
+    demoVideo: mongoose.Types.ObjectId;
+    socialMediaLinks: { [key: string]: string };
+    pricePerMessage: number;
     availability: boolean;
-    created_at: Date;
-    updated_at: Date;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 const celebritySchema = new mongoose.Schema({
@@ -26,18 +27,22 @@ const celebritySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    image_url: {
+    imageUrl: {
         type: String,
         required: true,
     },
     bio: {
         type: String,
     },
-    social_media_links: {
+    demoVideo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "VideoMessage",
+    },
+    socialMediaLinks: {
         type: Map,
         of: String,
     },
-    price_per_message: {
+    pricePerMessage: {
         type: Number,
         required: true,
     },
@@ -45,11 +50,11 @@ const celebritySchema = new mongoose.Schema({
         type: Boolean,
         required: true,
     },
-    created_at: {
+    createdAt: {
         type: Date,
         default: Date.now,
     },
-    updated_at: {
+    updatedAt: {
         type: Date,
         default: Date.now,
     },

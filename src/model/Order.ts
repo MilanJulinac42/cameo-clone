@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 
 interface Order extends mongoose.Document {
     id: string;
-    user_id: mongoose.Types.ObjectId;
-    celebrity_id: mongoose.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
+    celebrityId: mongoose.Types.ObjectId;
     message: string;
     price: number;
-    payment_method: string;
-    payment_status: string;
-    video_message_id: mongoose.Types.ObjectId;
-    created_at: Date;
-    updated_at: Date;
+    paymentMethod: string;
+    paymentStatus: string;
+    videoMessageId: mongoose.Types.ObjectId;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 const orderSchema = new mongoose.Schema({
@@ -18,12 +18,12 @@ const orderSchema = new mongoose.Schema({
         type: String,
         default: mongoose.Types.ObjectId,
     },
-    user_id: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "User",
     },
-    celebrity_id: {
+    celebrityId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "Celebrity",
@@ -36,24 +36,24 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    payment_method: {
+    paymentMethod: {
         type: String,
         required: true,
     },
-    payment_status: {
+    paymentStatus: {
         type: String,
         enum: ["Paid", "Pending", "Failed"],
         required: true,
     },
-    video_message_id: {
+    videoMessageId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "VideoMessage",
     },
-    created_at: {
+    createdAt: {
         type: Date,
         default: Date.now,
     },
-    updated_at: {
+    updatedAt: {
         type: Date,
         default: Date.now,
     },

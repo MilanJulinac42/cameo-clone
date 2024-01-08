@@ -5,9 +5,9 @@ interface User extends mongoose.Document {
     name: string;
     email: string;
     password: string;
-    phone_number?: string;
-    created_at: Date;
-    updated_at: Date;
+    phoneNumber?: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 const userSchema = new mongoose.Schema({
@@ -28,14 +28,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    phone_number: {
+    phoneNumber: {
         type: String,
     },
-    created_at: {
+    createdAt: {
         type: Date,
         default: Date.now,
     },
-    updated_at: {
+    updatedAt: {
         type: Date,
         default: Date.now,
     },
