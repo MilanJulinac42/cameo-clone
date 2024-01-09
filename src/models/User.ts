@@ -1,16 +1,21 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema, Model } from "mongoose";
+import bcrypt from "bcrypt";
 
 export interface IUser extends Document {
     name: string;
     email: string;
     password: string;
     phoneNumber?: string;
-    deleted: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
 
-const userSchema = new Schema<IUser>(
+export interface IUserModel extends IUser {
+    hashPassword(password: string): Promise<string>;
+    checkPassword(password: string): Promise<boolean>;
+}
+
+const userSchema = new Schema<IUserModel>(
     {
         name: {
             type: String,
@@ -37,10 +42,6 @@ const userSchema = new Schema<IUser>(
                     `${props.value} is not a valid phone number!`,
             },
         },
-        deleted: {
-            type: Boolean,
-            default: false,
-        },
         createdAt: {
             type: Date,
             default: Date.now,
@@ -53,6 +54,21 @@ const userSchema = new Schema<IUser>(
     { timestamps: true }
 );
 
-const User = mongoose.model<IUser>("User", userSchema);
+userSchema.methods.hashPassword = async function (
+    password: string
+): Promise<string> {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    return hashedPassword;
+};
+
+userSchema.methods.checkPassword = async function (
+    password: string
+): Promise<boolean> {
+    const isMatch = await bcrypt.compare(password, this.password);
+    return isMatch;
+};
+
+const User = mongoose.model<IUserModel>("User", userSchema);
 
 export default User;
