@@ -9,7 +9,6 @@ mongoose
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error(err));
 
-// Basic route for testing
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello World!");
 });
