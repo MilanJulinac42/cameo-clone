@@ -59,6 +59,16 @@ class UserController {
             res.status(500).json({ error: (error as Error).message });
         }
     }
+
+    async removeUser(req: Request, res: Response): Promise<void> {
+        const userId = req.params.id;
+        try {
+            await userService.removeUser(userId);
+            res.json({ message: "User deleted successfully" });
+        } catch (error) {
+            res.status(500).json({ error: (error as Error).message });
+        }
+    }
 }
 
 export default new UserController();

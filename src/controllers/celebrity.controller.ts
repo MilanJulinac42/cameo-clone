@@ -67,6 +67,16 @@ class CelebrityController {
             res.status(500).json({ error: (error as Error).message });
         }
     }
+
+    async removeCelebrity(req: Request, res: Response): Promise<void> {
+        const celebrityId = req.params.id;
+        try {
+            await celebrityService.removeUser(celebrityId);
+            res.json({ message: "Celebrity removed successfully" });
+        } catch (error) {
+            res.status(500).json({ error: (error as Error).message });
+        }
+    }
 }
 
 export default new CelebrityController();

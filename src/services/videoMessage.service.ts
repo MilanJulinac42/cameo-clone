@@ -70,6 +70,18 @@ class VideoMessageService {
             );
         }
     }
+
+    async removeVideoMessage(videoMessageId: string): Promise<void> {
+        try {
+            await VideoMessageModel.findByIdAndUpdate(videoMessageId, {
+                deleted: true,
+            });
+        } catch (error) {
+            throw new Error(
+                `Error deleting video message: ${(error as Error).message}`
+            );
+        }
+    }
 }
 
 export default new VideoMessageService();

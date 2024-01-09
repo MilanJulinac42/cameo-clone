@@ -8,6 +8,7 @@ export interface IOrder extends Document {
     paymentMethod: string;
     paymentStatus: "Paid" | "Pending" | "Failed";
     videoMessageId?: mongoose.Types.ObjectId;
+    deleted: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -44,6 +45,10 @@ const orderSchema = new Schema<IOrder>(
         videoMessageId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "VideoMessage",
+        },
+        deleted: {
+            type: Boolean,
+            default: false,
         },
         createdAt: {
             type: Date,

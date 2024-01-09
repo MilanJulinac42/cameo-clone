@@ -57,7 +57,19 @@ class OrderService {
             const deletedOrder = await OrderModel.findByIdAndDelete(orderId);
             return deletedOrder;
         } catch (error) {
-            throw new Error(`Error deleting user: ${(error as Error).message}`);
+            throw new Error(
+                `Error deleting order: ${(error as Error).message}`
+            );
+        }
+    }
+
+    async removeOrder(orderId: string): Promise<void> {
+        try {
+            await OrderModel.findByIdAndUpdate(orderId, { deleted: true });
+        } catch (error) {
+            throw new Error(
+                `Error removing order: ${(error as Error).message}`
+            );
         }
     }
 }

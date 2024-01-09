@@ -5,6 +5,7 @@ export interface IUser extends Document {
     email: string;
     password: string;
     phoneNumber?: string;
+    deleted: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -35,6 +36,10 @@ const userSchema = new Schema<IUser>(
                 message: (props) =>
                     `${props.value} is not a valid phone number!`,
             },
+        },
+        deleted: {
+            type: Boolean,
+            default: false,
         },
         createdAt: {
             type: Date,

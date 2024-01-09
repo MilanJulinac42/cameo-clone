@@ -52,6 +52,14 @@ class UserService {
             throw new Error(`Error deleting user: ${(error as Error).message}`);
         }
     }
+
+    async removeUser(userId: string): Promise<void> {
+        try {
+            await User.findByIdAndUpdate(userId, { deleted: true });
+        } catch (error) {
+            throw new Error(`Error deleting user: ${(error as Error).message}`);
+        }
+    }
 }
 
 export default new UserService();

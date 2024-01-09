@@ -61,6 +61,18 @@ class CelebrityService {
             );
         }
     }
+
+    async removeUser(celebrityId: string): Promise<void> {
+        try {
+            await CelebrityModel.findByIdAndUpdate(celebrityId, {
+                deleted: true,
+            });
+        } catch (error) {
+            throw new Error(
+                `Error removing celebrity: ${(error as Error).message}`
+            );
+        }
+    }
 }
 
 export default new CelebrityService();

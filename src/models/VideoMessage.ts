@@ -8,6 +8,7 @@ export interface IVideoMessage extends Document {
     duration?: number;
     price: number;
     status: "Pending" | "Accepted" | "Completed" | "Rejected";
+    deleted: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -42,6 +43,10 @@ const videoMessageSchema = new Schema<IVideoMessage>(
             type: String,
             enum: ["Pending", "Accepted", "Completed", "Rejected"],
             required: true,
+        },
+        deleted: {
+            type: Boolean,
+            default: false,
         },
     },
     { timestamps: true }

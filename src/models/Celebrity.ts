@@ -9,6 +9,7 @@ export interface ICelebrity extends Document {
     socialMediaLinks: Record<string, string>;
     pricePerMessage: number;
     availability: boolean;
+    deleted: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -45,6 +46,10 @@ const celebritySchema = new Schema<ICelebrity>(
         availability: {
             type: Boolean,
             required: true,
+        },
+        deleted: {
+            type: Boolean,
+            default: false,
         },
     },
     { timestamps: true }

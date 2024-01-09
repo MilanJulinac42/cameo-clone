@@ -58,6 +58,16 @@ class OrderController {
             res.status(500).json({ error: (error as Error).message });
         }
     }
+
+    async removeOrder(req: Request, res: Response): Promise<void> {
+        const orderId = req.params.id;
+        try {
+            await orderService.removeOrder(orderId);
+            res.json({ message: "Order removed successfully" });
+        } catch (error) {
+            res.status(500).json({ error: (error as Error).message });
+        }
+    }
 }
 
 export default new OrderController();
