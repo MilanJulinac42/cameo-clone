@@ -5,7 +5,6 @@ import { config } from "./config/config";
 import Logging from "./library/Loggin";
 
 const app = express();
-const port = 5000;
 
 mongoose
     .connect(config.mongo.url, config.mongo.options)
