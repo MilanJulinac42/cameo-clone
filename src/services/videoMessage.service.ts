@@ -50,7 +50,7 @@ class VideoMessageService {
             const updatedVideoMessage =
                 await VideoMessageModel.findByIdAndUpdate(
                     videoMessageId,
-                    videoMessageData,
+                    { $set: videoMessageData },
                     { new: true }
                 );
             return updatedVideoMessage;

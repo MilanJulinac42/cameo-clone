@@ -41,7 +41,7 @@ class CelebrityService {
         try {
             const updatedCelebrity = await CelebrityModel.findByIdAndUpdate(
                 celebrityId,
-                celebrityData,
+                { $set: celebrityData },
                 { new: true }
             );
             return updatedCelebrity;

@@ -6,7 +6,7 @@ const router: Router = express.Router();
 router.get("/", celebrityController.getAllCelebrities);
 router.get("/:id", celebrityController.getCelebrityById);
 router.post("/", celebrityController.createCelebrity);
-router.put("/:id", celebrityController.updateCelebrity);
+router.patch("/:id", celebrityController.updateCelebrity);
 router.delete("/:id", celebrityController.deleteCelebrity);
 
 export default router;

@@ -36,12 +36,12 @@ class OrderService {
 
     async updateOrder(
         orderId: string,
-        orderData: IOrder
+        orderData: Partial<IOrder>
     ): Promise<IOrder | null> {
         try {
             const updatedOrder = await OrderModel.findByIdAndUpdate(
                 orderId,
-                orderData,
+                { $set: orderData },
                 { new: true }
             );
             return updatedOrder;

@@ -29,15 +29,16 @@ class UserService {
             throw new Error(`Error creating user: ${(error as Error).message}`);
         }
     }
-
     async updateUser(
         userId: string,
         userData: Partial<IUser>
     ): Promise<IUser | null> {
         try {
-            const updatedUser = await User.findByIdAndUpdate(userId, userData, {
-                new: true,
-            });
+            const updatedUser = await User.findByIdAndUpdate(
+                userId,
+                { $set: userData },
+                { new: true }
+            );
             return updatedUser;
         } catch (error) {
             throw new Error(`Error updating user: ${(error as Error).message}`);
