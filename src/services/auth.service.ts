@@ -1,5 +1,11 @@
 import User, { IUser } from "../models/User";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const SECRET = process.env.SECRET || "";
 
 class AuthService {
     async registerUser(userData: IUser): Promise<IUser> {
@@ -19,12 +25,19 @@ class AuthService {
         }
     }
 
-    async loginUser(email: string, password: string): Promise<IUser | null> {
+    async loginUser(
+        email: string,
+        password: string
+    ): Promise<{ user: IUser; token: string } | null> {
         try {
             const user = await User.findOne({ email });
 
-            if (user && (await bcrypt.compare(password, user.password))) {
-                return user;
+            if (user && (await user.checkPassword(password))) {
+                const token = jwt.sign({ userId: user._id }, SECRET, {
+                    expiresIn: "3h",
+                });
+
+                return { user: user as IUser, token };
             }
 
             return null;

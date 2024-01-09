@@ -6,6 +6,10 @@ dotenv.config();
 
 const SECRET = process.env.SECRET || "";
 
+interface TokenPayload {
+    userId: string;
+}
+
 export const authMiddleware = async (
     req: Request,
     res: Response,
@@ -14,14 +18,17 @@ export const authMiddleware = async (
     try {
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
-            res.status(401).json({ message: "Unauthorized" });
+            res.status(401)
+                .json({ message: "Unauthorized: Token missing" })
+                .end();
             return;
         }
 
-        const decoded = jwt.verify(token, SECRET) as { [key: string]: any };
+        const decoded = jwt.verify(token, SECRET) as TokenPayload;
         (req as Request & { user: { [key: string]: any } }).user = decoded;
         next();
     } catch (error) {
-        res.status(401).json({ message: "Unauthorized" });
+        console.error(`JWT Verification Error: ${(error as Error).message}`);
+        res.status(401).json({ message: "Unauthorized: Invalid token" }).end();
     }
 };
