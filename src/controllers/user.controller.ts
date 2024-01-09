@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import userService from "../services/user.service";
+import * as userValidationMiddleware from "../middleware/validation/userValidation.middleware"; // Import your validation middleware
 
 class UserController {
     async getAllUsers(req: Request, res: Response): Promise<void> {
@@ -24,7 +25,6 @@ class UserController {
             res.status(500).json({ error: (error as Error).message });
         }
     }
-
     async createUser(req: Request, res: Response): Promise<void> {
         const userData = req.body;
         try {
