@@ -18,7 +18,6 @@ class AuthController {
             const user = await authService.loginUser(email, password);
 
             if (user) {
-                // TODO: Generate and send JWT token
                 res.json({ message: "Login successful", user });
             } else {
                 res.status(401).json({ message: "Invalid email or password" });

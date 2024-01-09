@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 class AuthService {
     async registerUser(userData: IUser): Promise<IUser> {
         try {
-            // Hash the password before saving to the database
             const hashedPassword = await bcrypt.hash(userData.password, 10);
             const userWithHashedPassword = {
                 ...userData,
@@ -25,11 +24,10 @@ class AuthService {
             const user = await User.findOne({ email });
 
             if (user && (await bcrypt.compare(password, user.password))) {
-                // Passwords match, return the user
                 return user;
             }
 
-            return null; // User not found or password is incorrect
+            return null;
         } catch (error) {
             throw new Error(`Error logging in: ${(error as Error).message}`);
         }
