@@ -4,11 +4,12 @@ import {
     createCelebrityValidation,
     updateCelebrityValidation,
 } from "../middleware/validation/celebrityValidation.middleware";
+import objectIdValidation from "../middleware/validation/idValidation.middleware";
 
 const router: Router = express.Router();
 
 router.get("/", celebrityController.getAllCelebrities);
-router.get("/:id", celebrityController.getCelebrityById);
+router.get("/:id", objectIdValidation, celebrityController.getCelebrityById);
 router.post(
     "/",
     createCelebrityValidation,
@@ -16,10 +17,15 @@ router.post(
 );
 router.patch(
     "/:id",
+    objectIdValidation,
     updateCelebrityValidation,
     celebrityController.updateCelebrity
 );
-router.delete("/delete/:id", celebrityController.deleteCelebrity);
-router.delete("/:id", celebrityController.removeCelebrity);
+router.delete(
+    "/delete/:id",
+    objectIdValidation,
+    celebrityController.deleteCelebrity
+);
+router.delete("/:id", objectIdValidation, celebrityController.removeCelebrity);
 
 export default router;
